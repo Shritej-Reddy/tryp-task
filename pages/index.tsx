@@ -1,6 +1,7 @@
 import Table from "./components/Table";
 import { useMemo } from "react";
 import paymentsData from "./MOCK_DATA.json";
+import AgGridTable from "./components/AgGridTable";
 
 export default function Home() {
   /** @type import('@tanstack/react-table).ColumnDef<any> */
@@ -20,8 +21,8 @@ export default function Home() {
 
   return (
     <>
-      <h1>DataTable</h1>
-      <Table data={paymentsData} columns={paymentsTableColumns} />
+      {/* <Table data={paymentsData} columns={paymentsTableColumns} /> */}
+      <AgGridTable />
     </>
   );
 }
