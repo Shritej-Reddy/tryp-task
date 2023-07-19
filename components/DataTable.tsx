@@ -8,6 +8,7 @@ import IDataTableInterface from "@/interfaces/DataTableInterfaces";
 
 type Props = {
   sortable?: boolean;
+  caption?: string;
   pagination?: boolean;
   rows: IDataTableInterface[];
   headers: agGrid.ColDef[];
@@ -46,6 +47,9 @@ const Grid = (props: Props) => {
 
   return (
     <div className="ag-theme-alpine grid-container">
+      <div>
+        <h1>{props.caption}</h1>
+      </div>
       <div className="flex justify-between align-middle mb-4 text-lg text-[#4b5563] ">
         <button
           className="rounded bg-gray-200 px-3 py-1"
