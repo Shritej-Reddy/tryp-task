@@ -1,28 +1,12 @@
-import Table from "./components/Table";
-import { useMemo } from "react";
-import paymentsData from "./MOCK_DATA.json";
-import AgGridTable from "./components/AgGridTable";
+import Link from "next/link";
+import Grid from "../components/Grid";
 
-export default function Home() {
-  /** @type import('@tanstack/react-table).ColumnDef<any> */
-  const data = useMemo(() => paymentsData, []);
-
-  /** @type import('@tanstack/react-table).ColumnDef<any> */
-  const paymentsTableColumns = [
-    {
-      header: "ID",
-      accessorKey: "id",
-    },
-    {
-      header: "Timestamp",
-      accessorKey: "timestamp",
-    },
-  ];
-
+const Home = () => {
   return (
-    <>
-      {/* <Table data={paymentsData} columns={paymentsTableColumns} /> */}
-      <AgGridTable />
-    </>
+    <div className="p-10">
+      <Grid />
+    </div>
   );
-}
+};
+
+export default Home;
