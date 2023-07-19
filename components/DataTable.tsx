@@ -3,28 +3,27 @@ import { AgGridReact } from "ag-grid-react";
 import * as agGrid from "ag-grid-community";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
+import { Input } from "@chakra-ui/react";
 import IDataTableInterface from "@/interfaces/DataTableInterfaces";
 
 type Props = {
-  sortable?: boolean,
-  pagination?: boolean,
-  rows: IDataTableInterface[],
-  headers: agGrid.ColDef[]
-}
+  sortable?: boolean;
+  pagination?: boolean;
+  rows: IDataTableInterface[];
+  headers: agGrid.ColDef[];
+};
 
 const Grid = (props: Props) => {
-  
   const [gridApi, setGridApi] = useState<agGrid.GridApi | null>(null);
   const [gridColumnApi, setGridColumnApi] = useState<agGrid.ColumnApi | null>(
     null
   );
 
-
   const defaultColDef: agGrid.ColDef = {
     flex: 1,
     minWidth: 100,
     resizable: true,
-    sortable: props.sortable
+    sortable: props.sortable,
   };
   const onGridReady = (params: agGrid.GridReadyEvent) => {
     setGridApi(params.api);
@@ -41,6 +40,10 @@ const Grid = (props: Props) => {
     }
   };
 
+  const onFilterTextChange = (e: any) => {
+    gridApi?.setQuickFilter(e.target.value);
+  };
+
   return (
     <div className="ag-theme-alpine grid-container">
       <div className="flex justify-between align-middle mb-4 text-lg text-[#4b5563] ">
@@ -50,6 +53,12 @@ const Grid = (props: Props) => {
         >
           Clear Filters
         </button>
+        <Input
+          type="blackAlpha"
+          onChange={onFilterTextChange}
+          placeholder=" Search box..."
+          isRequired={true}
+        />
       </div>
       <AgGridReact
         className="ag-grid"
