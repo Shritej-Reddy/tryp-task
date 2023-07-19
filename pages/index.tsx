@@ -28,7 +28,7 @@ const Home = () => {
 
   return (
     <div className="p-10">
-      <DataTable sortable caption="Olympic Winners" pagination rows={rowData} headers={columnDefs} />
+      <DataTable sortable={sortable} caption="Olympic Winners" pagination={pagination} rows={rowData} headers={columnDefs} />
     </div>
   );
 };

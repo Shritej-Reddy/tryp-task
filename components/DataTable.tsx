@@ -47,8 +47,8 @@ const Grid = (props: Props) => {
 
   return (
     <div className="ag-theme-alpine grid-container">
-      <div>
-        <h1>{props.caption}</h1>
+      <div className="font-bold text-4xl mb-2 text-red-800">
+        {props.caption}
       </div>
       <div className="flex justify-between align-middle mb-4 text-lg text-[#4b5563] ">
         <button
