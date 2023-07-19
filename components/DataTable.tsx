@@ -3,52 +3,29 @@ import { AgGridReact } from "ag-grid-react";
 import * as agGrid from "ag-grid-community";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
+import IDataTableInterface from "@/interfaces/DataTableInterfaces";
 
-interface RowData {
-  athlete: string;
-  age: number;
-  country: string;
-  year: number;
-  date: string;
-  sport: string;
-  gold: number;
-  silver: number;
-  bronze: number;
-  total: number;
+type Props = {
+  sortable?: boolean,
+  pagination?: boolean,
+  rows: IDataTableInterface[],
+  headers: agGrid.ColDef[]
 }
 
-const Grid: React.FC = () => {
-  const [rowData, setRowData] = useState<RowData[]>([]);
+const Grid = (props: Props) => {
+  
   const [gridApi, setGridApi] = useState<agGrid.GridApi | null>(null);
   const [gridColumnApi, setGridColumnApi] = useState<agGrid.ColumnApi | null>(
     null
   );
 
-  useEffect(() => {
-    fetch("https://www.ag-grid.com/example-assets/olympic-winners.json")
-      .then((response) => response.json())
-      .then((data) => setRowData(data));
-  }, []);
-
-  const columnDefs: agGrid.ColDef[] = [
-    { field: "athlete", filter: "agTextColumnFilter" },
-    { field: "age", filter: "agNumberColumnFilter" },
-    { field: "country", filter: "agSetColumnFilter" },
-    { field: "year", filter: "agNumberColumnFilter" },
-    { field: "date", filter: "agDateColumnFilter" },
-    { field: "sport", filter: "agTextColumnFilter" },
-    { field: "gold", filter: "agNumberColumnFilter" },
-    { field: "silver", filter: "agNumberColumnFilter" },
-    { field: "bronze", filter: "agNumberColumnFilter" },
-    { field: "total", filter: "agNumberColumnFilter" },
-  ];
 
   const defaultColDef: agGrid.ColDef = {
     flex: 1,
     minWidth: 100,
     resizable: true,
+    sortable: props.sortable
   };
-
   const onGridReady = (params: agGrid.GridReadyEvent) => {
     setGridApi(params.api);
     setGridColumnApi(params.columnApi);
@@ -76,11 +53,11 @@ const Grid: React.FC = () => {
       </div>
       <AgGridReact
         className="ag-grid"
-        columnDefs={columnDefs}
-        rowData={rowData}
+        columnDefs={props.headers}
+        rowData={props.rows}
         defaultColDef={defaultColDef}
         onGridReady={onGridReady}
-        pagination={true}
+        pagination={props.pagination}
         paginationPageSize={50}
         onPaginationChanged={onPaginationChanged}
       ></AgGridReact>
